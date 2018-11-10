@@ -4,7 +4,7 @@
  * @author m13p4
  * @copyright Meliantchenkov Pavel
  */
-function getNanoSec()
+function getHrTime()
 {
     var s = process.hrtime();
     return s[0]+(s[1]/1e9);
@@ -115,28 +115,28 @@ for(; t < toTest.length; t++)
 
 
     //Write Array
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(var i = 0; i < toCreate; i++) arr.push(i+1);
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["Array"][t][0] = runTime;
 
     //Write Object
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(var i = 0; i < toCreate; i++) obj[i] = i+1;
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["Object"][t][0] = runTime;
 
     //Write IndexedObject
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(var i = 0; i < toCreate; i++) indexObj.set(i, i+1);
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["IndexedObject CallBack"][t][0] = runTime;
     results["IndexedObject ForLoop"][t][0] = runTime;
     
     //Write LinkedObject
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(var i = 0; i < toCreate; i++) linkObj.push(i, i+1);
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["LinkedObject While"][t][0] = runTime;
     results["LinkedObject CallBack"][t][0] = runTime;
     
@@ -144,52 +144,52 @@ for(; t < toTest.length; t++)
 
     //Read Array
     SUM = 0;
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(i = 0; i < arr.length; i++) SUM += arr[i];
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["Array"][t][1] = runTime;
     SUM_check = SUM;
     
 
     //Read Object
     SUM = 0;
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(i in obj) SUM += obj[i];
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["Object"][t][1] = SUM === SUM_check ? runTime : 0;
 
 
     //Read IndexedObject (callback)
     SUM = 0;
-    startTime = getNanoSec();
+    startTime = getHrTime();
     indexObj.for((key, val) => { SUM += val; });
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["IndexedObject CallBack"][t][1] = SUM === SUM_check ? runTime : 0;
 
 
     //Read IndexedObject (for-loop)
     SUM = 0;
-    startTime = getNanoSec();
+    startTime = getHrTime();
     for(i = 0; i < indexObj.length; i++) SUM += indexObj.byIndex(i);
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["IndexedObject ForLoop"][t][1] = SUM === SUM_check ? runTime : 0;
 
 
     //Read LinkedObject (while)
     var key;
     SUM = 0;
-    startTime = getNanoSec();
+    startTime = getHrTime();
     linkObj.start();
     while(false !== (key = linkObj.next())) SUM += linkObj.current();
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["LinkedObject While"][t][1] = SUM === SUM_check ? runTime : 0;
     
     
     //Read LinkedObject (callback)
     SUM = 0;
-    startTime = getNanoSec();
+    startTime = getHrTime();
     linkObj.for((key,val)=>{ SUM += val; });
-    runTime = getNanoSec()-startTime;
+    runTime = getHrTime()-startTime;
     results["LinkedObject CallBack"][t][1] = SUM === SUM_check ? runTime : 0;
 }
 
