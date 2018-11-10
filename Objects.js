@@ -6,9 +6,14 @@
  * @author m13p4
  * @copyright Meliantchenkov Pavel
  */
-var Objects = {
-    LinkedObject: require("./LinkedObject.js"),
-    IndexedObject: require("./IndexedObject.js")
-};
+var Objects = {};
+if("undefined" !== typeof module)
+{
+    var IndexedObject = require("./IndexedObject.js"),
+        LinkedObject  = require("./LinkedObject.js");
 
-if("undefined" !== typeof module) module.exports = Objects;
+    module.exports = Objects;
+}
+
+if("function" === typeof IndexedObject) Objects.IndexedObject = IndexedObject;
+if("function" === typeof LinkedObject)  Objects.LinkedObject = LinkedObject;
