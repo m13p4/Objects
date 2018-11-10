@@ -28,7 +28,7 @@ function LinkedObject()
             k: key    //key
         };
 
-        if(last) last.n = toPush;
+        last.n = toPush;
 
         last = toPush;
         obj[key] = toPush;
@@ -54,10 +54,12 @@ function LinkedObject()
     function _next()
     {
         c = c.n;
+        return c !== false;
     }
     function _prev()
     {
         c = c.p;
+        return c !== false && c !== first;
     }
     
     function _for(callback)
